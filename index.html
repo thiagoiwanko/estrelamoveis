@@ -1,0 +1,1887 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Estrela Móveis | A maior loja de móveis da região</title>
+  <meta name="description" content="Estrela Móveis em União da Vitória, a maior loja de móveis da região sul do Paraná. Móveis, colchões, eletros e as melhores marcas.">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Reset ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    img, video { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Tokens ─────────────────────────────────────── */
+    :root {
+      --blue:      #0300FF;
+      --blue-mid:  #1A1AFF;
+      --blue-dark: #08053A;
+      --white:     #FFFFFF;
+      --off:       #F5F6FA;
+      --ink:       #0A0B1E;
+      --muted:     #6B7280;
+      --border:    rgba(0,0,0,0.08);
+      --instagram: linear-gradient(135deg, #833ab4 0%, #c13584 34%, #e1306c 64%, #fd8d32 100%);
+
+      --font-display: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-body:    'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --rad: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--ink);
+      line-height: 1.65;
+      overflow-x: hidden;
+      font-weight: 400;
+    }
+
+    /* ── Nav ─────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 14px clamp(20px, 5vw, 60px);
+      min-height: 86px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    }
+    .nav.scrolled {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-logo {
+      height: clamp(56px, 5.6vw, 78px);
+      width: auto;
+      object-fit: contain;
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 14px;
+      background: rgba(8, 5, 58, 0.28);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.18);
+      backdrop-filter: blur(14px);
+      transition: background 0.4s, border-color 0.4s, box-shadow 0.4s, padding 0.4s, height 0.4s;
+    }
+    .nav.scrolled .nav-logo {
+      height: 58px;
+      padding: 8px 12px;
+      background: transparent;
+      border-color: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+
+    .nav-cta {
+      display: flex;
+      gap: 10px;
+    }
+    .nav-btn {
+      height: 40px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: none;
+    }
+    .nav-btn:hover { transform: translateY(-2px); }
+    .nav-btn.wpp {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 6px 20px rgba(37,211,102,0.35);
+    }
+    .nav-btn.insta {
+      background: var(--instagram);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.24);
+      box-shadow: 0 10px 28px rgba(225, 48, 108, 0.28);
+    }
+    .nav.scrolled .nav-btn.insta {
+      background: var(--instagram);
+      color: #fff;
+      border-color: rgba(225, 48, 108, 0.22);
+    }
+    .nav-btn svg { width: 16px; height: 16px; }
+
+    /* ── Hero ─────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding-top: clamp(86px, 12vh, 140px);
+      padding-bottom: clamp(60px, 10vh, 110px);
+      overflow: hidden;
+      color: var(--white);
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+
+    /* Gradient: left-heavy, cinematic */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(105deg,
+          rgba(8,5,58,0.95) 0%,
+          rgba(8,5,58,0.75) 45%,
+          rgba(3,0,255,0.18) 80%,
+          transparent 100%),
+        linear-gradient(0deg,
+          rgba(8,5,58,0.9) 0%,
+          transparent 55%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(1180px, calc(100% - clamp(32px,8vw,120px)));
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 24px;
+    }
+
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(46px, 7.5vw, 100px);
+      font-weight: 800;
+      line-height: 1.04;
+      letter-spacing: 0;
+      margin-bottom: 28px;
+      max-width: 750px;
+    }
+    .hero-headline em {
+      font-style: normal;
+      color: #dff6ff;
+      text-shadow: 0 18px 54px rgba(25, 211, 255, 0.26);
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 1.6vw, 18px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.72);
+      max-width: 460px;
+      margin-bottom: 44px;
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 60px;
+    }
+
+    .btn-hero {
+      height: 56px;
+      padding: 0 28px;
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease);
+      white-space: nowrap;
+    }
+    .btn-hero:hover { transform: translateY(-3px); }
+    .btn-hero svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+    .btn-wpp {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 16px 40px rgba(37,211,102,0.4);
+    }
+    .btn-wpp:hover { box-shadow: 0 20px 50px rgba(37,211,102,0.55); }
+
+    .btn-insta {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.18), transparent 32%),
+        var(--instagram);
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.24);
+      box-shadow: 0 16px 42px rgba(225, 48, 108, 0.34), inset 0 1px 0 rgba(255,255,255,0.24);
+    }
+    .btn-insta:hover {
+      box-shadow: 0 20px 54px rgba(225, 48, 108, 0.48), inset 0 1px 0 rgba(255,255,255,0.28);
+    }
+
+    /* Stats strip */
+    .hero-stats {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 3vw, 32px);
+      flex-wrap: wrap;
+    }
+
+    /* Google review card */
+    .stat-google {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px;
+      padding: 14px 22px 14px 16px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+    }
+    .stat-google-logo {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
+    .stat-google-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .stat-google-score {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      line-height: 1;
+    }
+    .stat-google-num {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 3.6vw, 44px);
+      font-weight: 800;
+      letter-spacing: 0;
+      color: #fff;
+    }
+    .stat-google-stars {
+      color: #FAAD14;
+      font-size: 16px;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 12px rgba(250,173,20,0.4);
+    }
+    .stat-google-count {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+    }
+
+    /* Other stats */
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+    .stat-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .stat-stars {
+      display: block;
+      margin-top: 4px;
+      color: #FAAD14;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-shadow: 0 8px 18px rgba(250, 173, 20, 0.28);
+    }
+    .stat-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.14);
+      flex-shrink: 0;
+    }
+
+    /* Mascote — filho direto de .hero (position:relative, 100svh)
+       top:50% = centro vertical do viewport.
+       right alinhado à borda direita do bloco de conteúdo de 1180px.
+       width proporcional ao headline (~28vw). */
+    .mascot {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: max(20px, calc(50% - 570px));
+      width: clamp(240px, 28vw, 420px);
+      z-index: 2;
+      animation: float 4s ease-in-out infinite;
+      filter: drop-shadow(0 34px 54px rgba(0,0,0,0.42));
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(-50%); }
+      50%       { transform: translateY(calc(-50% - 16px)); }
+    }
+
+    /* Scroll cue */
+    .scroll-cue {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.4);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .scroll-cue-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1; transform: scaleY(1.2); }
+    }
+
+    /* ── Brands ───────────────────────────────────────── */
+    .brands {
+      background: var(--blue-dark);
+      padding: 80px 0;
+      overflow: hidden;
+    }
+    .brands-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      padding: 0 clamp(20px, 5vw, 60px);
+      gap: 24px;
+    }
+    .brands-ticker-num {
+      font-size: clamp(40px, 5vw, 60px) !important;
+      color: #fff;
+    }
+    .brands-ticker-label {
+      color: rgba(255,255,255,0.5) !important;
+      font-size: 11px !important;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
+    }
+    .brands-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.45);
+      max-width: 340px;
+      line-height: 1.5;
+      text-align: right;
+    }
+
+    .marquee-wrap {
+      position: relative;
+    }
+    .marquee-wrap::before,
+    .marquee-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 120px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .marquee-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, var(--blue-dark), transparent);
+    }
+    .marquee-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, var(--blue-dark), transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      animation: marquee 28s linear infinite;
+      width: max-content;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+
+    .brand-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 160px;
+      height: 70px;
+      margin-right: 12px;
+      padding: 10px 24px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: 0 16px 36px rgba(0,0,0,0.18);
+      white-space: nowrap;
+    }
+    .brand-item img {
+      width: auto;
+      max-width: 160px;
+      max-height: 50px;
+      object-fit: contain;
+      opacity: 0.9;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .brand-item:hover img {
+      opacity: 1;
+      transform: scale(1.04);
+    }
+    .brand-item span {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--blue-dark);
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+      text-transform: uppercase;
+    }
+    .brand-item:hover span { color: var(--blue); }
+
+    .brand-item.brand-dark {
+      background: #08053A;
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    .brand-item.brand-dark img {
+      opacity: 1;
+    }
+
+    /* ── Diferenciais ────────────────────────────────── */
+    .diferenciais {
+      background: var(--white);
+      padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 60px);
+      border-bottom: 1px solid var(--border);
+    }
+    .diferenciais-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 48px;
+    }
+    .diferenciais-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .dif-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+      padding: 28px 20px 24px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--off);
+      transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease);
+    }
+    .dif-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(3,0,255,0.08);
+      border-color: rgba(3,0,255,0.15);
+    }
+    .dif-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: var(--blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 10px 28px rgba(3,0,255,0.25);
+    }
+    .dif-icon svg { width: 26px; height: 26px; fill: #fff; }
+    .dif-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .dif-note {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-top: -8px;
+    }
+
+    @media (max-width: 900px) {
+      .diferenciais-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .diferenciais { padding: 52px 20px; }
+      .diferenciais-label { margin-bottom: 32px; }
+      .diferenciais-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; max-width: 420px; margin-left: auto; margin-right: auto; }
+      .dif-card { padding: 22px 14px 18px; gap: 12px; }
+      .dif-icon { width: 44px; height: 44px; border-radius: 12px; }
+      .dif-icon svg { width: 22px; height: 22px; }
+      .dif-title { font-size: 13px; }
+    }
+
+    /* ── Showroom ─────────────────────────────────────── */
+    .showroom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 72vh;
+    }
+    .instagram-panel {
+      position: relative;
+      overflow: hidden;
+      min-height: 72vh;
+      display: grid;
+      align-content: center;
+      gap: 18px;
+      padding: clamp(28px, 5vw, 70px);
+      background:
+        radial-gradient(circle at 18% 18%, rgba(225, 48, 108, 0.22), transparent 30%),
+        radial-gradient(circle at 82% 72%, rgba(253, 141, 50, 0.18), transparent 28%),
+        linear-gradient(135deg, #08053A 0%, #150b5c 48%, #2b0f51 100%);
+    }
+
+    .instagram-panel-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      color: #fff;
+    }
+
+    .instagram-panel-head span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      color: rgba(255,255,255,0.65);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .instagram-panel-head svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .instagram-panel-head strong {
+      display: block;
+      font-size: clamp(28px, 4vw, 48px);
+      line-height: 1.02;
+    }
+
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .instagram-post {
+      min-height: clamp(220px, 28vw, 350px);
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+      color: #fff;
+      background:
+        linear-gradient(180deg, transparent 0%, rgba(8,5,58,0.78) 100%),
+        var(--instagram);
+      box-shadow: 0 24px 54px rgba(0,0,0,0.24);
+    }
+
+    .instagram-post::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 22%, rgba(255,255,255,0.34), transparent 22%),
+        linear-gradient(135deg, rgba(255,255,255,0.18), transparent 45%);
+      opacity: 0.9;
+    }
+
+    .instagram-post strong,
+    .instagram-post span {
+      position: relative;
+      z-index: 1;
+    }
+
+    .instagram-post strong {
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .instagram-post span {
+      margin-top: 8px;
+      color: rgba(255,255,255,0.78);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .instagram-note {
+      color: rgba(255,255,255,0.62);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .showroom-copy {
+      background: var(--blue);
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(48px, 7vw, 100px) clamp(36px, 5vw, 80px);
+    }
+    .showroom-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 20px;
+    }
+    .showroom-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4.5vw, 58px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: 0;
+      margin-bottom: 24px;
+    }
+    .showroom-p {
+      font-size: 16px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.78);
+      line-height: 1.7;
+      max-width: 380px;
+      margin-bottom: 40px;
+    }
+    .showroom-features {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.85);
+    }
+    .feature-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      flex-shrink: 0;
+    }
+
+    /* ── Reviews ──────────────────────────────────────── */
+    .reviews {
+      background: var(--off);
+      padding: clamp(72px, 10vw, 120px) clamp(20px, 5vw, 60px);
+    }
+    .reviews-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .reviews-anchor {
+      position: sticky;
+      top: 90px;
+    }
+    /* ── Review hero card ─────────────────────────────── */
+    .review-hero-card {
+      position: relative;
+      background: #07071a;
+      border-radius: 28px;
+      padding: 44px 36px 40px;
+      overflow: hidden;
+      text-align: center;
+      margin-bottom: 24px;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.28);
+    }
+
+    /* Starfield */
+    .review-hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(1.2px 1.2px at  8% 12%, rgba(255,255,255,.7) 0%, transparent 100%),
+        radial-gradient(1px   1px   at 22%  6%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1.4px 1.4px at 37% 20%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1px   1px   at 52%  9%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 68% 16%, rgba(255,255,255,.7) 0%, transparent 100%),
+        radial-gradient(1px   1px   at 81%  5%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1.3px 1.3px at 93% 22%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1px   1px   at 14% 35%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 45% 42%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px   1px   at 76% 38%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1.4px 1.4px at  5% 58%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1px   1px   at 89% 52%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 31% 72%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1px   1px   at 62% 68%, rgba(255,255,255,.5) 0%, transparent 100%),
+        radial-gradient(1.3px 1.3px at 18% 88%, rgba(255,255,255,.4) 0%, transparent 100%),
+        radial-gradient(1px   1px   at 55% 85%, rgba(255,255,255,.6) 0%, transparent 100%),
+        radial-gradient(1.2px 1.2px at 84% 78%, rgba(255,255,255,.5) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* Warm glow behind stars */
+    .review-hero-card::after {
+      content: '';
+      position: absolute;
+      bottom: 60px; left: 50%;
+      transform: translateX(-50%);
+      width: 220px; height: 160px;
+      background: radial-gradient(ellipse, rgba(250,173,20,0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .rhc-headline {
+      font-family: var(--font-display);
+      font-size: clamp(14px, 2vw, 17px);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .rhc-google-text {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4.5vw, 52px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      margin-bottom: 22px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .rhc-deco-stars {
+      font-size: clamp(22px, 3vw, 32px);
+      letter-spacing: 4px;
+      color: #FAAD14;
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      filter: drop-shadow(0 4px 12px rgba(250,173,20,0.5));
+    }
+    .rhc-star-big {
+      font-size: clamp(36px, 5vw, 54px);
+      line-height: 1;
+    }
+
+    .rhc-badge {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: clamp(110px, 14vw, 148px);
+      height: clamp(110px, 14vw, 148px);
+      border-radius: 50%;
+      background: #14142a;
+      border: 2px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+      position: relative;
+      z-index: 1;
+      gap: 2px;
+    }
+    .rhc-badge-score {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.5vw, 38px);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .rhc-badge-stars {
+      color: #FAAD14;
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+    .rhc-badge-count {
+      font-size: 11px;
+      color: rgba(255,255,255,0.45);
+      font-weight: 500;
+    }
+
+    .btn-google {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 46px;
+      padding: 0 22px;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s;
+    }
+    .btn-google:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+    }
+
+    /* Review cards — scrolling carousel */
+    .review-cards-wrap {
+      overflow: hidden;
+      /* height = 3 cards × ~160px + 2 gaps × 16px */
+      height: calc(3 * 160px + 2 * 16px);
+      position: relative;
+    }
+    /* fade top/bottom */
+    .review-cards-wrap::before,
+    .review-cards-wrap::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 80px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .review-cards-wrap::before {
+      top: 0;
+      background: linear-gradient(to bottom, var(--off), transparent);
+    }
+    .review-cards-wrap::after {
+      bottom: 0;
+      background: linear-gradient(to top, var(--off), transparent);
+    }
+
+    .review-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      animation: scrollReviews 18s linear infinite;
+    }
+    .review-cards-wrap:hover .review-cards {
+      animation-play-state: paused;
+    }
+    @keyframes scrollReviews {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    .review-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--rad);
+      padding: 24px;
+      flex-shrink: 0;
+    }
+    .rc-stars { color: #FAAD14; font-size: 14px; letter-spacing: 2px; margin-bottom: 10px; }
+    .rc-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .rc-body { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ── Location ─────────────────────────────────────── */
+    .location {
+      padding: clamp(72px, 10vw, 120px) clamp(20px, 5vw, 60px);
+    }
+    .location-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .location-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+    .location-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 50px);
+      font-weight: 800;
+      letter-spacing: 0;
+      line-height: 1.12;
+      margin-bottom: 20px;
+    }
+    .location-p {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+    .address-block {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: var(--off);
+      border: 1px solid var(--border);
+      border-radius: var(--rad);
+      padding: 20px 22px;
+      margin-bottom: 32px;
+    }
+    .address-icon {
+      width: 40px; height: 40px;
+      background: var(--blue);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .address-icon svg { width: 18px; height: 18px; fill: #fff; }
+    .address-label { font-size: 11px; color: var(--muted); font-weight: 500; margin-bottom: 4px; }
+    .address-value { font-size: 15px; font-weight: 600; line-height: 1.4; }
+
+    .btn-route {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      height: 52px;
+      padding: 0 26px;
+      border-radius: 999px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 0.2s var(--ease), box-shadow 0.2s;
+      box-shadow: 0 12px 30px rgba(3,0,255,0.28);
+    }
+    .btn-route:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 40px rgba(3,0,255,0.42);
+    }
+
+    .map-frame {
+      border-radius: 24px;
+      overflow: hidden;
+      height: 420px;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.1);
+    }
+    .map-frame iframe {
+      width: 100%; height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── CTA Section ──────────────────────────────────── */
+    .cta-section {
+      background: var(--blue-dark);
+      padding: clamp(80px, 12vw, 140px) clamp(20px, 5vw, 60px);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Decorative glow */
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(3,0,255,0.3), transparent 70%);
+      top: -200px; right: -100px;
+      pointer-events: none;
+    }
+    .cta-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .cta-eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 20px;
+    }
+    .cta-h2 {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 6vw, 76px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: 0;
+      line-height: 1.08;
+      margin-bottom: 22px;
+      max-width: 700px;
+    }
+    .cta-p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 400;
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 48px;
+    }
+    .cta-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cta-btn {
+      height: 60px;
+      padding: 0 34px;
+      border-radius: 999px;
+      font-size: 16px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.22s var(--ease), box-shadow 0.22s;
+    }
+    .cta-btn:hover { transform: translateY(-4px); }
+    .cta-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+    .cta-btn-wpp {
+      background: #25D366;
+      color: #fff;
+      box-shadow: 0 20px 48px rgba(37,211,102,0.45);
+    }
+    .cta-btn-wpp:hover { box-shadow: 0 28px 60px rgba(37,211,102,0.6); }
+
+    .cta-btn-insta {
+      background: var(--instagram);
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      box-shadow: 0 16px 42px rgba(225, 48, 108, 0.34);
+    }
+    .cta-btn-insta:hover { box-shadow: 0 22px 56px rgba(225, 48, 108, 0.48); }
+
+    .cta-contact-info {
+      margin-top: 44px;
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cta-contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+    }
+    .cta-contact-row svg { width: 14px; height: 14px; opacity: 0.6; }
+
+    /* ── Footer ───────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      padding: 28px clamp(20px, 5vw, 60px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-logo { height: 32px; width: auto; filter: brightness(0) invert(1); opacity: 0.55; }
+    .footer-copy { font-size: 12px; color: rgba(255,255,255,0.3); }
+    .footer-link { font-size: 12px; color: rgba(255,255,255,0.4); transition: color 0.2s; }
+    .footer-link:hover { color: rgba(255,255,255,0.8); }
+
+    /* ── Mobile FAB bar ───────────────────────────────── */
+    .fab-bar {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 200;
+      background: rgba(10,11,30,0.95);
+      backdrop-filter: blur(20px);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+      gap: 10px;
+    }
+    .fab-btn {
+      flex: 1;
+      height: 50px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s;
+    }
+    .fab-btn:active { transform: scale(0.97); }
+    .fab-btn svg { width: 18px; height: 18px; }
+    .fab-wpp { background: #25D366; color: #fff; }
+    .fab-insta { background: var(--instagram); color: #fff; border: 1px solid rgba(255,255,255,0.14); }
+
+    /* ── Animations ───────────────────────────────────── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    [data-reveal].revealed {
+      opacity: 1;
+      transform: none;
+    }
+    [data-reveal][data-delay="1"] { transition-delay: 0.1s; }
+    [data-reveal][data-delay="2"] { transition-delay: 0.2s; }
+    [data-reveal][data-delay="3"] { transition-delay: 0.3s; }
+    [data-reveal][data-delay="4"] { transition-delay: 0.4s; }
+
+    /* ── Stat vertical ticker ─────────────────────────── */
+    .stat-ticker-wrap {
+      display: inline-flex;
+      align-items: flex-start;
+      overflow: hidden;
+      height: 1.04em;
+      vertical-align: middle;
+    }
+    .stat-ticker {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.04;
+      transform: translateY(0);
+      /* transition applied via JS when triggered */
+    }
+    .stat-ticker-digit {
+      display: block;
+      line-height: 1.04;
+      height: 1.04em;
+      text-align: left;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      [data-reveal], .mascot { animation: none !important; transition: none !important; opacity: 1 !important; transform: none !important; }
+      .stat-ticker { transition: none !important; }
+    }
+
+    /* ── Responsive: tablet ──────────────────────────── */
+    @media (max-width: 900px) {
+      /* Mascot */
+      .mascot { display: none; }
+
+      /* Showroom — empilha e inverte ordem (texto primeiro) */
+      .showroom { grid-template-columns: 1fr; }
+      .showroom-copy { order: -1; }
+      .instagram-panel { min-height: auto; order: 0; }
+      .instagram-grid { grid-template-columns: repeat(2, 1fr); }
+      .instagram-post { min-height: 200px; }
+
+      /* Reviews */
+      .reviews-inner { grid-template-columns: 1fr; gap: 40px; }
+      .reviews-anchor { position: static; }
+
+      /* Location */
+      .location-inner { grid-template-columns: 1fr; }
+      .map-frame { height: 300px; }
+    }
+
+    /* ── Responsive: mobile ───────────────────────────── */
+    @media (max-width: 640px) {
+      /* Nav */
+      .nav-cta { display: none; }
+      .nav { min-height: 72px; padding: 10px 16px; }
+      .nav-logo { height: 54px; padding: 8px 10px; }
+
+      /* FAB */
+      .fab-bar { display: flex; }
+      body { padding-bottom: 80px; }
+
+      /* Hero */
+      .hero-content { width: calc(100% - 40px); }
+      .hero-headline { font-size: clamp(38px, 10vw, 54px); }
+      .hero-sub { font-size: 15px; margin-bottom: 32px; }
+      .hero-actions {
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 44px;
+      }
+      .btn-hero {
+        width: 100%;
+        justify-content: center;
+        height: 52px;
+      }
+      .hero-stats {
+        gap: 16px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
+      .stat-divider { display: none; }
+      .stat-google { padding: 12px 16px 12px 12px; gap: 12px; }
+      .stat-google-num { font-size: clamp(24px, 7vw, 34px); }
+
+      /* Brands */
+      .brands { padding: 52px 0; }
+      .brands-header { flex-direction: column; align-items: center; text-align: center; }
+      .brands-label { font-size: 13px; text-align: center; max-width: 280px; }
+
+      /* Showroom */
+      .showroom-copy {
+        padding: clamp(40px, 10vw, 72px) clamp(24px, 6vw, 60px);
+      }
+      .instagram-grid { grid-template-columns: 1fr; }
+      .instagram-post { min-height: 180px; }
+
+      /* Reviews */
+      .reviews { padding: 60px 20px; }
+      .review-hero-card { padding: 36px 24px 32px; }
+      .review-cards-wrap { height: calc(2 * 155px + 1 * 16px); }
+
+      /* Location */
+      .location { padding: 60px 20px; }
+      .map-frame { height: 260px; }
+
+      /* CTA */
+      .cta-section { padding: 72px 24px; }
+      .cta-h2 { font-size: clamp(34px, 9vw, 54px); }
+      .cta-buttons { flex-direction: column; align-items: stretch; }
+      .cta-btn { width: 100%; justify-content: center; height: 54px; }
+      .cta-contact-info { gap: 16px; flex-direction: column; align-items: center; }
+
+      /* Footer */
+      footer { flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+    }
+
+    /* ── Behold Widget ───────────────────────────────── */
+    .behold-wrapper {
+      width: 100%;
+    }
+    .behold-wrapper behold-widget {
+      display: block;
+      width: 100%;
+    }
+    /* Overrides para encaixar no dark panel */
+    behold-widget::part(grid) {
+      gap: 10px !important;
+    }
+    behold-widget::part(item) {
+      border-radius: 14px !important;
+      overflow: hidden !important;
+    }
+    .behold-fallback {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.55);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    /* Esconde o fallback quando o widget carregar */
+    .behold-wrapper:not(:empty) ~ .behold-fallback {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<!-- SVG Symbols -->
+<svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="ic-wpp" viewBox="0 0 24 24">
+    <path d="M19.1 4.9A9.8 9.8 0 0 0 3.6 16.7L2.2 22l5.4-1.4A9.8 9.8 0 0 0 22 12.2a9.7 9.7 0 0 0-2.9-7.3Zm-7.2 15.4a8.1 8.1 0 0 1-4.1-1.1l-.3-.2-3.2.8.9-3.1-.2-.3a8.1 8.1 0 1 1 6.9 3.9Zm4.4-6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.8 1-.2.2-.3.2-.6.1-.2-.1-1-.4-2-1.2-.7-.7-1.2-1.4-1.4-1.7-.1-.2 0-.4.1-.5l.4-.5.3-.5c.1-.2 0-.4 0-.5l-.7-1.7c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.4-.2.2-.9.9-.9 2.2s1 2.6 1.1 2.8c.1.2 2 3 4.8 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.4-.6 1.6-1.1.2-.6.2-1 .2-1.1-.1-.2-.3-.3-.5-.4Z"/>
+  </symbol>
+  <symbol id="ic-insta" viewBox="0 0 24 24">
+    <path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2Zm0 2A3.8 3.8 0 0 0 4 7.8v8.4A3.8 3.8 0 0 0 7.8 20h8.4a3.8 3.8 0 0 0 3.8-3.8V7.8A3.8 3.8 0 0 0 16.2 4H7.8Zm8.7 2.8a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4ZM12 7.2a4.8 4.8 0 1 1 0 9.6 4.8 4.8 0 0 1 0-9.6Zm0 2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6Z"/>
+  </symbol>
+  <symbol id="ic-map" viewBox="0 0 24 24">
+    <path d="M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7Zm0 4.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z"/>
+  </symbol>
+  <symbol id="ic-phone" viewBox="0 0 24 24">
+    <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/>
+  </symbol>
+  <symbol id="ic-arrow" viewBox="0 0 24 24">
+    <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </symbol>
+</svg>
+
+<!-- ── Nav ── -->
+<nav class="nav" id="nav">
+  <img class="nav-logo" src="assets/logo-estrela-branca.png" alt="Estrela Móveis" id="navLogo">
+  <div class="nav-cta">
+    <a class="nav-btn wpp" href="https://wa.me/554235224466" target="_blank" rel="noopener">
+      <svg><use href="#ic-wpp"></use></svg> WhatsApp
+    </a>
+    <a class="nav-btn insta" href="https://www.instagram.com/estreladepartamento/" target="_blank" rel="noopener">
+      <svg><use href="#ic-insta"></use></svg> Instagram
+    </a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero" id="inicio">
+  <video class="hero-video" autoplay muted loop playsinline preload="metadata"
+    poster="assets/estrela-moveis-showroom.png" aria-hidden="true">
+    <source src="assets/hero-estrela-video.mp4" type="video/mp4">
+  </video>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">União da Vitória · Paraná</p>
+    <h1 class="hero-headline">
+      A maior loja<br>de móveis<br><em>da região.</em>
+    </h1>
+    <p class="hero-sub">Móveis, colchões e eletros com as melhores marcas do mercado. Tudo em um só lugar, no centro da cidade.</p>
+    <div class="hero-actions">
+      <a class="btn-hero btn-wpp" href="https://wa.me/554235224466" target="_blank" rel="noopener">
+        <svg><use href="#ic-wpp"></use></svg> Falar no WhatsApp
+      </a>
+      <a class="btn-hero btn-insta" href="https://www.instagram.com/estreladepartamento/" target="_blank" rel="noopener">
+        <svg><use href="#ic-insta"></use></svg> Ver no Instagram
+      </a>
+    </div>
+    <div class="hero-stats">
+      <!-- Google Review Card -->
+      <a class="stat-google" href="https://share.google/IEflott5bXr2dkhbs" target="_blank" rel="noopener" aria-label="Ver avaliações no Google">
+        <svg class="stat-google-logo" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="20" fill="#fff"/>
+          <path d="M32.5 20.3c0-.9-.08-1.77-.23-2.6H20v4.92h6.97c-.3 1.58-1.2 2.92-2.56 3.82v3.18h4.14c2.42-2.23 3.82-5.52 3.82-9.32z" fill="#4285F4"/>
+          <path d="M20 33c3.48 0 6.4-1.15 8.54-3.13l-4.14-3.18c-1.15.77-2.62 1.22-4.4 1.22-3.38 0-6.25-2.28-7.27-5.35H8.45v3.28C10.58 30.67 15.02 33 20 33z" fill="#34A853"/>
+          <path d="M12.73 22.56A8.1 8.1 0 0 1 12.3 20c0-.9.16-1.76.43-2.56v-3.28H8.45A13.02 13.02 0 0 0 7 20c0 2.1.5 4.08 1.45 5.84l4.28-3.28z" fill="#FBBC05"/>
+          <path d="M20 11.09c1.9 0 3.61.65 4.95 1.94l3.72-3.72C26.4 7.18 23.48 6 20 6c-4.98 0-9.42 2.33-12.55 5.84l4.28 3.28C12.75 13.37 15.62 11.09 20 11.09z" fill="#EA4335"/>
+        </svg>
+        <div class="stat-google-body">
+          <div class="stat-google-score">
+            <span class="stat-google-num" data-google-rating>5,0</span>
+            <span class="stat-google-stars">★★★★★</span>
+          </div>
+          <span class="stat-google-count" data-google-review-copy>Avaliações no Google</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <img class="mascot" src="assets/estrela-mascote.png" alt="" aria-hidden="true">
+
+  <div class="scroll-cue" aria-hidden="true">
+    <div class="scroll-cue-line"></div>
+    <span>rolar</span>
+  </div>
+</section>
+
+<!-- ── Brands Marquee ── -->
+<section class="brands" aria-label="Marcas parceiras">
+  <div class="brands-header">
+    <div class="stat" id="statMarcas">
+      <span class="stat-num stat-ticker-wrap brands-ticker-num" aria-label="Mais de 80 marcas parceiras">+<span class="stat-ticker" id="marcasTicker"></span></span>
+      <span class="stat-label brands-ticker-label">Marcas parceiras</span>
+    </div>
+    <p class="brands-label">Aqui algumas dessas marcas que você conhece e confia e encontra aqui</p>
+  </div>
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <!-- set 1 -->
+      <div class="brand-item"><img src="assets/marca-fa-maringa.png" alt="Colchões FA Maringá"></div>
+      <div class="brand-item"><img src="assets/marca-ecoflex.png" alt="Ecoflex"></div>
+      <div class="brand-item"><img src="assets/marca-henn.png" alt="Henn"></div>
+      <div class="brand-item"><img src="assets/marca-panan.png" alt="Panan Móveis"></div>
+      <div class="brand-item"><img src="assets/marca-tramontina.png" alt="Tramontina"></div>
+      <div class="brand-item"><img src="assets/marca-moveis-sul.png" alt="Móveis Sul"></div>
+      <div class="brand-item"><img src="assets/marca-lanza.png" alt="Móveis Lanza"></div>
+      <div class="brand-item"><img src="assets/marca-dj-moveis.png" alt="DJ Móveis"></div>
+      <div class="brand-item"><img src="assets/marca-indekes.png" alt="Indekes Cozinhas"></div>
+      <div class="brand-item"><img src="assets/marca-best.png" alt="Best"></div>
+      <div class="brand-item"><img src="assets/marca-carraro.webp" alt="Carraro"></div>
+      <div class="brand-item"><img src="assets/marca-atlas.webp" alt="Atlas"></div>
+      <div class="brand-item"><img src="assets/marca-dako.png" alt="Dako"></div>
+      <div class="brand-item"><img src="assets/marca-notavel.png" alt="Notável"></div>
+      <div class="brand-item"><img src="assets/marca-gebbwork.png" alt="GEBB Work"></div>
+      <div class="brand-item"><img src="assets/marca-umaflex.png" alt="Umaflex"></div>
+      <div class="brand-item"><img src="assets/marca-ghelplus.png" alt="GhelPlus"></div>
+      <div class="brand-item"><img src="assets/marca-mueller.png" alt="Mueller"></div>
+      <!-- set 2 (duplicate for seamless loop) -->
+      <div class="brand-item"><img src="assets/marca-fa-maringa.png" alt="Colchões FA Maringá"></div>
+      <div class="brand-item"><img src="assets/marca-ecoflex.png" alt="Ecoflex"></div>
+      <div class="brand-item"><img src="assets/marca-henn.png" alt="Henn"></div>
+      <div class="brand-item"><img src="assets/marca-panan.png" alt="Panan Móveis"></div>
+      <div class="brand-item"><img src="assets/marca-tramontina.png" alt="Tramontina"></div>
+      <div class="brand-item"><img src="assets/marca-moveis-sul.png" alt="Móveis Sul"></div>
+      <div class="brand-item"><img src="assets/marca-lanza.png" alt="Móveis Lanza"></div>
+      <div class="brand-item"><img src="assets/marca-dj-moveis.png" alt="DJ Móveis"></div>
+      <div class="brand-item"><img src="assets/marca-indekes.png" alt="Indekes Cozinhas"></div>
+      <div class="brand-item"><img src="assets/marca-best.png" alt="Best"></div>
+      <div class="brand-item"><img src="assets/marca-carraro.webp" alt="Carraro"></div>
+      <div class="brand-item"><img src="assets/marca-atlas.webp" alt="Atlas"></div>
+      <div class="brand-item"><img src="assets/marca-dako.png" alt="Dako"></div>
+      <div class="brand-item"><img src="assets/marca-notavel.png" alt="Notável"></div>
+      <div class="brand-item"><img src="assets/marca-gebbwork.png" alt="GEBB Work"></div>
+      <div class="brand-item"><img src="assets/marca-umaflex.png" alt="Umaflex"></div>
+      <div class="brand-item"><img src="assets/marca-ghelplus.png" alt="GhelPlus"></div>
+      <div class="brand-item"><img src="assets/marca-mueller.png" alt="Mueller"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Diferenciais ── -->
+<section class="diferenciais" aria-label="Nossos diferenciais">
+  <p class="diferenciais-label">Por que escolher a Estrela Móveis?</p>
+  <div class="diferenciais-grid">
+
+    <div class="dif-card" data-reveal>
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2a3 3 0 0 0 6 0h6a3 3 0 0 0 6 0h2v-5l-3-4ZM6 18.5A1.5 1.5 0 1 1 7.5 17 1.5 1.5 0 0 1 6 18.5Zm13.5-9 1.96 2.5H17V9.5h2.5ZM18 18.5a1.5 1.5 0 1 1 1.5-1.5 1.5 1.5 0 0 1-1.5 1.5Z"/></svg>
+      </div>
+      <p class="dif-title">Entrega Grátis</p>
+      <p class="dif-note">Até 50 km em estrada pavimentada*</p>
+    </div>
+
+    <div class="dif-card" data-reveal data-delay="1">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm-7 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 10a8 8 0 0 1 6.93 4H5.07A8 8 0 0 1 12 16Z"/><circle cx="12" cy="10" r="2"/></svg>
+      </div>
+      <p class="dif-title">Montagem Grátis</p>
+      <p class="dif-note">Produto montado sem que você precise esperar</p>
+    </div>
+
+    <div class="dif-card" data-reveal data-delay="2">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 16.5c0 .38-.21.71-.53.88l-7.9 4.44c-.16.12-.36.18-.57.18s-.41-.06-.57-.18l-7.9-4.44A1 1 0 0 1 3 16.5v-9c0-.38.21-.71.53-.88l7.9-4.44a1.1 1.1 0 0 1 1.14 0l7.9 4.44c.32.17.53.5.53.88v9Z"/></svg>
+      </div>
+      <p class="dif-title">Pronta Entrega</p>
+      <p class="dif-note">Estoque completo disponível imediatamente</p>
+    </div>
+
+    <div class="dif-card" data-reveal data-delay="3">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h4v4H4V4Zm6 0h4v4h-4V4Zm6 0h4v4h-4V4ZM4 10h4v4H4v-4Zm6 0h4v4h-4v-4Zm6 0h4v4h-4v-4ZM4 16h4v4H4v-4Zm6 0h4v4h-4v-4Zm6 0h4v4h-4v-4Z"/></svg>
+      </div>
+      <p class="dif-title">Maior Variedade</p>
+      <p class="dif-note">+80 marcas e milhares de produtos em loja</p>
+    </div>
+
+    <div class="dif-card" data-reveal data-delay="4">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="4" width="22" height="16" rx="3" ry="3"/><path d="M1 10h22" stroke="#fff" stroke-width="2" fill="none"/></svg>
+      </div>
+      <p class="dif-title">Parcelamento Facilitado</p>
+      <p class="dif-note">Até 12× no crediário ou 18× no cartão*</p>
+    </div>
+
+    <div class="dif-card" data-reveal data-delay="4">
+      <div class="dif-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/><path d="M11 8h2v2h-2zM11 10h2v6h-2z" fill="rgba(255,255,255,0.4)"/><circle cx="12" cy="12" r="9" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/><path d="M7 12l3 3 7-7" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <p class="dif-title">Menor Preço</p>
+      <p class="dif-note">O menor preço você encontra aqui</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── Instagram + Showroom ── -->
+<section class="showroom" aria-label="Showroom">
+  <div class="instagram-panel" data-reveal>
+    <div class="instagram-panel-head">
+      <div>
+        <span><svg><use href="#ic-insta"></use></svg> @estreladepartamento</span>
+        <strong>Últimas novidades<br>no Instagram.</strong>
+      </div>
+    </div>
+    <!-- ── Behold Instagram Widget ──────────────────────
+         COMO ATIVAR:
+         1. Acesse https://behold.so e crie conta gratuita
+         2. Conecte com @estreladepartamento
+         3. Crie um feed, escolha estilo "Grid"
+         4. Cole o seu Feed ID abaixo no lugar de SEU_FEED_ID_AQUI
+         ─────────────────────────────────────────────── -->
+    <div class="behold-wrapper">
+      <behold-widget feed-id="mPUEl3UgN5GLeM9j3Suc"></behold-widget>
+    </div>
+
+    <!-- Fallback: aparece só enquanto o widget não estiver configurado -->
+    <p class="instagram-note behold-fallback">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="rgba(255,255,255,0.6)" style="flex-shrink:0"><use href="#ic-insta"></use></svg>
+      Acompanhe nossas novidades, promoções e ambientes em tempo real.
+    </p>
+  </div>
+  <div class="showroom-copy">
+    <p class="showroom-eyebrow" data-reveal>Nosso showroom</p>
+    <h2 class="showroom-h2" data-reveal data-delay="1">Você precisa ver<br>pra acreditar.</h2>
+    <p class="showroom-p" data-reveal data-delay="2">Um espaço enorme com ambientes completos montados para você imaginar cada detalhe antes de levar pra casa.</p>
+    <div class="showroom-features" data-reveal data-delay="2">
+      <div class="feature-row"><span class="feature-dot"></span>Móveis para sala, quarto, cozinha e escritório</div>
+      <div class="feature-row"><span class="feature-dot"></span>Colchões de todas as marcas e tamanhos</div>
+      <div class="feature-row"><span class="feature-dot"></span>Linha de eletrodomésticos completa</div>
+      <div class="feature-row"><span class="feature-dot"></span>Atendimento personalizado sem pressão</div>
+    </div>
+    <a class="btn-hero btn-insta" href="https://www.instagram.com/estreladepartamento/" target="_blank" rel="noopener" data-reveal data-delay="3" style="width:fit-content">
+      <svg><use href="#ic-insta"></use></svg> Ver novidades no Instagram
+    </a>
+  </div>
+</section>
+
+<!-- ── Reviews ── -->
+<section class="reviews" id="avaliacoes" aria-labelledby="rev-title">
+  <div class="reviews-inner">
+    <div class="reviews-anchor">
+      <div class="review-hero-card" data-reveal>
+        <p class="rhc-headline">Somos <span data-google-rating>5,0</span> estrelas no</p>
+        <p class="rhc-google-text">
+          <span style="color:#4285F4">G</span><span style="color:#EA4335">o</span><span style="color:#FBBC05">o</span><span style="color:#4285F4">g</span><span style="color:#34A853">l</span><span style="color:#EA4335">e</span>
+        </p>
+        <div class="rhc-deco-stars">
+          <span>★</span><span>★</span><span class="rhc-star-big">★</span><span>★</span><span>★</span>
+        </div>
+        <div class="rhc-badge">
+          <span class="rhc-badge-score" data-google-rating>5,0</span>
+          <span class="rhc-badge-stars">★★★★★</span>
+          <span class="rhc-badge-count">(<span data-google-review-total>199</span>)</span>
+        </div>
+      </div>
+
+      <a class="btn-google" href="https://share.google/IEflott5bXr2dkhbs" target="_blank" rel="noopener" data-reveal data-delay="1" id="rev-title">
+        Ver avaliações no Google
+        <svg style="width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round"><use href="#ic-arrow"></use></svg>
+      </a>
+    </div>
+
+    <div class="review-cards-wrap">
+      <div class="review-cards">
+        <!-- set 1 -->
+        <div class="review-card">
+          <div class="rc-stars">★★★★★</div>
+          <div class="rc-title">Atendimento impecável</div>
+          <div class="rc-body">A equipe ajudou em cada detalhe, desde a escolha do sofá até a entrega. Senti que eram de confiança desde o primeiro contato.</div>
+        </div>
+        <div class="review-card">
+          <div class="rc-stars">★★★★★</div>
+          <div class="rc-title">Variedade que impressiona</div>
+          <div class="rc-body">Encontrei tudo que precisava para o apartamento novo em um só lugar. Móveis, colchão e geladeira, tudo na Estrela.</div>
+        </div>
+        <div class="review-card">
+          <div class="rc-stars">★★★★★</div>
+          <div class="rc-title">Referência na região</div>
+          <div class="rc-body">Moro em Porto União e venho sempre comprar aqui. Preço justo, qualidade real e um ambiente de loja que inspira.</div>
+        </div>
+        <div class="review-card">
+          <div class="rc-stars">★★★★★</div>
+          <div class="rc-title">Compra fácil e rápida</div>
+          <div class="rc-body">Mandei mensagem no WhatsApp e em minutos já tinham me respondido com fotos e preços. Entrega foi no prazo combinado.</div>
+        </div>
+        <!-- set 2 — duplicata para loop contínuo -->
+        <div class="review-card">
+          <div class="rc-stars">★★★★★</div>
+          <div class="rc-title">Atendimento impecável</div>
+          <div class="rc-body">A equipe ajudou em cada detalhe, desde a escolha do sofá até a entrega. Senti que eram de confiança desde o primeiro contato.</div>
+        </div>
+        <div class="review-card">
+          <div class="rc-stars">★★★★★</div>
+          <div class="rc-title">Variedade que impressiona</div>
+          <div class="rc-body">Encontrei tudo que precisava para o apartamento novo em um só lugar. Móveis, colchão e geladeira, tudo na Estrela.</div>
+        </div>
+        <div class="review-card">
+          <div class="rc-stars">★★★★★</div>
+          <div class="rc-title">Referência na região</div>
+          <div class="rc-body">Moro em Porto União e venho sempre comprar aqui. Preço justo, qualidade real e um ambiente de loja que inspira.</div>
+        </div>
+        <div class="review-card">
+          <div class="rc-stars">★★★★★</div>
+          <div class="rc-title">Compra fácil e rápida</div>
+          <div class="rc-body">Mandei mensagem no WhatsApp e em minutos já tinham me respondido com fotos e preços. Entrega foi no prazo combinado.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Location ── -->
+<section class="location" id="localizacao" aria-labelledby="loc-title">
+  <div class="location-inner">
+    <div>
+      <p class="location-eyebrow" data-reveal>Onde estamos</p>
+      <h2 class="location-h2" id="loc-title" data-reveal data-delay="1">No centro de<br>União da Vitória/PR.</h2>
+      <p class="location-p" data-reveal data-delay="2">Fácil de chegar, fácil de estacionar. Venha pessoalmente conhecer nossos ambientes montados e sair com tudo que precisar.</p>
+      <div class="address-block" data-reveal data-delay="2">
+        <div class="address-icon">
+          <svg><use href="#ic-map"></use></svg>
+        </div>
+        <div>
+          <div class="address-label">Endereço</div>
+          <div class="address-value">Rua Nipton Curi, 27 — Centro<br>União da Vitória — PR</div>
+        </div>
+      </div>
+      <a class="btn-route" href="https://www.google.com/maps/search/?api=1&query=Rua%20Nipton%20Curi%2027%20Centro%20Uni%C3%A3o%20da%20Vit%C3%B3ria%20PR" target="_blank" rel="noopener" data-reveal data-delay="3">
+        <svg style="width:18px;height:18px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round"><use href="#ic-arrow"></use></svg>
+        Abrir rota no Google Maps
+      </a>
+    </div>
+    <div class="map-frame" data-reveal data-delay="1">
+      <iframe
+        title="Mapa da Estrela Móveis"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=Rua%20Nipton%20Curi%2027%20Centro%20Uni%C3%A3o%20da%20Vit%C3%B3ria%20PR&output=embed">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section" id="contato" aria-labelledby="cta-title">
+  <div class="cta-inner">
+    <p class="cta-eyebrow" data-reveal>Pronto para começar?</p>
+    <h2 class="cta-h2" id="cta-title" data-reveal data-delay="1">Gostou? Chama<br>a Estrela.</h2>
+    <p class="cta-p" data-reveal data-delay="2">Sem formulário, sem espera. Fale direto com a gente pelo WhatsApp ou acompanhe as novidades no Instagram.</p>
+    <div class="cta-buttons" data-reveal data-delay="3">
+      <a class="cta-btn cta-btn-wpp" href="https://wa.me/554235224466" target="_blank" rel="noopener">
+        <svg><use href="#ic-wpp"></use></svg> Falar no WhatsApp
+      </a>
+      <a class="cta-btn cta-btn-insta" href="https://www.instagram.com/estreladepartamento/" target="_blank" rel="noopener">
+        <svg><use href="#ic-insta"></use></svg> Abrir Instagram
+      </a>
+    </div>
+    <div class="cta-contact-info" data-reveal data-delay="4">
+      <span class="cta-contact-row">
+        <svg fill="rgba(255,255,255,0.5)"><use href="#ic-phone"></use></svg>
+        (42) 3522-4466
+      </span>
+      <span class="cta-contact-row">
+        <svg fill="rgba(255,255,255,0.5)"><use href="#ic-map"></use></svg>
+        Rua Nipton Curi, 27 — Centro, UDV/PR
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <img class="footer-logo" src="assets/logo-estrela-branca.png" alt="Estrela Móveis">
+  <span class="footer-copy">© 2026 Estrela Móveis. Todos os direitos reservados.</span>
+  <a class="footer-link" href="https://www.instagram.com/estreladepartamento/" target="_blank" rel="noopener">@estreladepartamento</a>
+</footer>
+
+<!-- ── Mobile FAB ── -->
+<nav class="fab-bar" aria-label="Contato rápido">
+  <a class="fab-btn fab-wpp" href="https://wa.me/554235224466" target="_blank" rel="noopener">
+    <svg><use href="#ic-wpp"></use></svg> WhatsApp
+  </a>
+  <a class="fab-btn fab-insta" href="https://www.instagram.com/estreladepartamento/" target="_blank" rel="noopener">
+    <svg><use href="#ic-insta"></use></svg> Instagram
+  </a>
+</nav>
+
+<script>
+  const ESTRELA_GOOGLE_PLACE = {
+    apiKey: 'AIzaSyCjJrNuRPkaGTimtc0zn1kdX1kw7_UtW88',
+    placeId: 'ChIJV-VC4u9h5pQR64y8UrwQAPM'
+  };
+
+  function updateGoogleRatingDisplay(rating, totalReviews) {
+    const ratingText = Number(rating).toLocaleString('pt-BR', {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1
+    });
+    const totalText = Number(totalReviews).toLocaleString('pt-BR');
+
+    document.querySelectorAll('[data-google-rating]').forEach((element) => {
+      element.textContent = ratingText;
+    });
+
+    document.querySelectorAll('[data-google-review-total]').forEach((element) => {
+      element.textContent = totalText;
+    });
+
+    document.querySelectorAll('[data-google-review-copy]').forEach((element) => {
+      element.textContent = `${totalText} avaliações verificadas`;
+    });
+  }
+
+  function setGoogleRatingFallback() {
+    document.querySelectorAll('[data-google-rating]').forEach((element) => {
+      element.textContent = '5,0';
+    });
+
+    document.querySelectorAll('[data-google-review-total]').forEach((element) => {
+      element.textContent = 'Atual';
+    });
+
+    document.querySelectorAll('[data-google-review-copy]').forEach((element) => {
+      element.textContent = 'Nota e avaliações atualizadas direto no perfil do Google';
+    });
+  }
+
+  function loadGooglePlaceData() {
+    const { apiKey, placeId } = ESTRELA_GOOGLE_PLACE;
+    if (!apiKey || !placeId) { setGoogleRatingFallback(); return; }
+
+    window._estrelaPlacesReady = function () {
+      try {
+        // PlacesService exige um elemento dentro do DOM
+        const anchor = document.createElement('div');
+        anchor.style.display = 'none';
+        document.body.appendChild(anchor);
+        const svc = new google.maps.places.PlacesService(anchor);
+        svc.getDetails(
+          { placeId, fields: ['rating', 'user_ratings_total'] },
+          function (place, status) {
+            if (
+              status === google.maps.places.PlacesServiceStatus.OK &&
+              place && place.rating && place.user_ratings_total
+            ) {
+              updateGoogleRatingDisplay(place.rating, place.user_ratings_total);
+            } else {
+              console.warn('[Estrela] PlacesService status:', status);
+              setGoogleRatingFallback();
+            }
+          }
+        );
+      } catch (e) {
+        console.warn('[Estrela] PlacesService error:', e);
+        setGoogleRatingFallback();
+      }
+    };
+
+    const s = document.createElement('script');
+    s.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places&callback=_estrelaPlacesReady&loading=async`;
+    s.async = true;
+    s.defer = true;
+    s.onerror = setGoogleRatingFallback;
+    document.head.appendChild(s);
+  }
+
+  loadGooglePlaceData();
+
+  // Nav scroll behavior
+  const nav     = document.getElementById('nav');
+  const navLogo = document.getElementById('navLogo');
+
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > 60;
+    nav.classList.toggle('scrolled', scrolled);
+    // branca → hero escuro | recortada (colorida) → nav branco
+    navLogo.src = scrolled
+      ? 'assets/logo-estrela-recortada.png'
+      : 'assets/logo-estrela-branca.png';
+  }, { passive: true });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('[data-reveal]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('revealed');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // ── Marcas counter ticker ──────────────────────────────
+  (function () {
+    const TARGET = 80;
+    const ticker = document.getElementById('marcasTicker');
+    if (!ticker) return;
+
+    // Build digit list 0 → TARGET
+    for (let i = 0; i <= TARGET; i++) {
+      const s = document.createElement('span');
+      s.className = 'stat-ticker-digit';
+      s.textContent = i;
+      ticker.appendChild(s);
+    }
+
+    // Show TARGET immediately (no animation yet)
+    ticker.style.transform = `translateY(calc(-${TARGET} * 1.04em))`;
+
+    // On first intersection, animate from 0 → TARGET
+    let animated = false;
+    const mo = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting && !animated) {
+          animated = true;
+          // snap to top (0) instantly, then transition to TARGET
+          ticker.style.transition = 'none';
+          ticker.style.transform = 'translateY(0)';
+          // force reflow so the browser registers the snap
+          ticker.getBoundingClientRect();
+          ticker.style.transition = 'transform 1.8s cubic-bezier(0.16, 1, 0.3, 1)';
+          ticker.style.transform = `translateY(calc(-${TARGET} * 1.04em))`;
+          mo.disconnect();
+        }
+      });
+    }, { threshold: 0.6 });
+
+    mo.observe(document.querySelector('.brands') || document.getElementById('statMarcas'));
+  })();
+</script>
+
+<!-- Behold Instagram Widget Script -->
+<script>
+  (() => {
+    const d=document,s=d.createElement("script");s.type="module";
+    s.src="https://w.behold.so/widget.js";d.head.append(s);
+  })();
+</script>
+</body>
+</html>
