@@ -6,9 +6,13 @@
   <title>Estrela Móveis | A maior loja de móveis da região</title>
   <meta name="description" content="Estrela Móveis em União da Vitória, a maior loja de móveis da região sul do Paraná. Móveis, colchões, eletros e as melhores marcas.">
   <link rel="icon" type="image/png" href="assets/favicon.png">
+  <!-- Preload LCP: poster do vídeo hero -->
+  <link rel="preload" as="image" href="assets/estrela-moveis-showroom.webp" fetchpriority="high">
+  <!-- Fontes: preconnect + carregamento não bloqueante -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 
   <style>
     /* ── Reset ─────────────────────────────────────── */
@@ -1366,7 +1370,7 @@
 
 <!-- ── Nav ── -->
 <nav class="nav" id="nav">
-  <img class="nav-logo" src="assets/logo-estrela-branca.png" alt="Estrela Móveis" id="navLogo">
+  <img class="nav-logo" src="assets/logo-estrela-branca.webp" alt="Estrela Móveis" id="navLogo" fetchpriority="low">
   <div class="nav-cta">
     <a class="nav-btn wpp" href="https://wa.me/554235224466" target="_blank" rel="noopener">
       <svg><use href="#ic-wpp"></use></svg> WhatsApp
@@ -1379,9 +1383,10 @@
 
 <!-- ── Hero ── -->
 <section class="hero" id="inicio">
-  <video class="hero-video" autoplay muted loop playsinline preload="metadata"
-    poster="assets/estrela-moveis-showroom.png" aria-hidden="true">
-    <source src="assets/hero-estrela-video.mp4" type="video/mp4">
+  <video class="hero-video" autoplay muted loop playsinline preload="none"
+    poster="assets/estrela-moveis-showroom.webp" aria-hidden="true">
+    <source src="assets/hero-estrela-video.webm" type="video/webm">
+    <source src="assets/hero-estrela-video-light.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
 
@@ -1421,7 +1426,7 @@
     </div>
   </div>
 
-  <img class="mascot" src="assets/estrela-mascote.png" alt="" aria-hidden="true">
+  <img class="mascot" src="assets/estrela-mascote.webp" alt="" aria-hidden="true" loading="lazy">
 
   <div class="scroll-cue" aria-hidden="true">
     <div class="scroll-cue-line"></div>
@@ -1441,43 +1446,43 @@
   <div class="marquee-wrap">
     <div class="marquee-track">
       <!-- set 1 -->
-      <div class="brand-item"><img src="assets/marca-fa-maringa.png" alt="Colchões FA Maringá"></div>
-      <div class="brand-item"><img src="assets/marca-ecoflex.png" alt="Ecoflex"></div>
-      <div class="brand-item"><img src="assets/marca-henn.png" alt="Henn"></div>
-      <div class="brand-item"><img src="assets/marca-panan.png" alt="Panan Móveis"></div>
-      <div class="brand-item"><img src="assets/marca-tramontina.png" alt="Tramontina"></div>
-      <div class="brand-item"><img src="assets/marca-moveis-sul.png" alt="Móveis Sul"></div>
-      <div class="brand-item"><img src="assets/marca-lanza.png" alt="Móveis Lanza"></div>
-      <div class="brand-item"><img src="assets/marca-dj-moveis.png" alt="DJ Móveis"></div>
-      <div class="brand-item"><img src="assets/marca-indekes.png" alt="Indekes Cozinhas"></div>
-      <div class="brand-item"><img src="assets/marca-best.png" alt="Best"></div>
-      <div class="brand-item"><img src="assets/marca-carraro.webp" alt="Carraro"></div>
-      <div class="brand-item"><img src="assets/marca-atlas.webp" alt="Atlas"></div>
-      <div class="brand-item"><img src="assets/marca-dako.png" alt="Dako"></div>
-      <div class="brand-item"><img src="assets/marca-notavel.png" alt="Notável"></div>
-      <div class="brand-item"><img src="assets/marca-gebbwork.png" alt="GEBB Work"></div>
-      <div class="brand-item"><img src="assets/marca-umaflex.png" alt="Umaflex"></div>
-      <div class="brand-item"><img src="assets/marca-ghelplus.png" alt="GhelPlus"></div>
-      <div class="brand-item"><img src="assets/marca-mueller.png" alt="Mueller"></div>
+      <div class="brand-item"><img src="assets/marca-fa-maringa.webp" alt="Colchões FA Maringá" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-ecoflex.webp" alt="Ecoflex" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-henn.webp" alt="Henn" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-panan.webp" alt="Panan Móveis" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-tramontina.webp" alt="Tramontina" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-moveis-sul.webp" alt="Móveis Sul" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-lanza.webp" alt="Móveis Lanza" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-dj-moveis.webp" alt="DJ Móveis" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-indekes.webp" alt="Indekes Cozinhas" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-best.webp" alt="Best" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-carraro.webp" alt="Carraro" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-atlas.webp" alt="Atlas" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-dako.webp" alt="Dako" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-notavel.webp" alt="Notável" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-gebbwork.webp" alt="GEBB Work" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-umaflex.webp" alt="Umaflex" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-ghelplus.webp" alt="GhelPlus" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-mueller.webp" alt="Mueller" loading="lazy"></div>
       <!-- set 2 (duplicate for seamless loop) -->
-      <div class="brand-item"><img src="assets/marca-fa-maringa.png" alt="Colchões FA Maringá"></div>
-      <div class="brand-item"><img src="assets/marca-ecoflex.png" alt="Ecoflex"></div>
-      <div class="brand-item"><img src="assets/marca-henn.png" alt="Henn"></div>
-      <div class="brand-item"><img src="assets/marca-panan.png" alt="Panan Móveis"></div>
-      <div class="brand-item"><img src="assets/marca-tramontina.png" alt="Tramontina"></div>
-      <div class="brand-item"><img src="assets/marca-moveis-sul.png" alt="Móveis Sul"></div>
-      <div class="brand-item"><img src="assets/marca-lanza.png" alt="Móveis Lanza"></div>
-      <div class="brand-item"><img src="assets/marca-dj-moveis.png" alt="DJ Móveis"></div>
-      <div class="brand-item"><img src="assets/marca-indekes.png" alt="Indekes Cozinhas"></div>
-      <div class="brand-item"><img src="assets/marca-best.png" alt="Best"></div>
-      <div class="brand-item"><img src="assets/marca-carraro.webp" alt="Carraro"></div>
-      <div class="brand-item"><img src="assets/marca-atlas.webp" alt="Atlas"></div>
-      <div class="brand-item"><img src="assets/marca-dako.png" alt="Dako"></div>
-      <div class="brand-item"><img src="assets/marca-notavel.png" alt="Notável"></div>
-      <div class="brand-item"><img src="assets/marca-gebbwork.png" alt="GEBB Work"></div>
-      <div class="brand-item"><img src="assets/marca-umaflex.png" alt="Umaflex"></div>
-      <div class="brand-item"><img src="assets/marca-ghelplus.png" alt="GhelPlus"></div>
-      <div class="brand-item"><img src="assets/marca-mueller.png" alt="Mueller"></div>
+      <div class="brand-item"><img src="assets/marca-fa-maringa.webp" alt="Colchões FA Maringá" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-ecoflex.webp" alt="Ecoflex" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-henn.webp" alt="Henn" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-panan.webp" alt="Panan Móveis" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-tramontina.webp" alt="Tramontina" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-moveis-sul.webp" alt="Móveis Sul" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-lanza.webp" alt="Móveis Lanza" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-dj-moveis.webp" alt="DJ Móveis" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-indekes.webp" alt="Indekes Cozinhas" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-best.webp" alt="Best" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-carraro.webp" alt="Carraro" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-atlas.webp" alt="Atlas" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-dako.webp" alt="Dako" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-notavel.webp" alt="Notável" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-gebbwork.webp" alt="GEBB Work" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-umaflex.webp" alt="Umaflex" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-ghelplus.webp" alt="GhelPlus" loading="lazy"></div>
+      <div class="brand-item"><img src="assets/marca-mueller.webp" alt="Mueller" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -1715,7 +1720,7 @@
 
 <!-- ── Footer ── -->
 <footer>
-  <img class="footer-logo" src="assets/logo-estrela-branca.png" alt="Estrela Móveis">
+  <img class="footer-logo" src="assets/logo-estrela-branca.webp" alt="Estrela Móveis" loading="lazy">
   <span class="footer-copy">© 2026 Estrela Móveis. Todos os direitos reservados.</span>
   <a class="footer-link" href="https://www.instagram.com/estreladepartamento/" target="_blank" rel="noopener">@estreladepartamento</a>
 </footer>
@@ -1820,8 +1825,8 @@
     nav.classList.toggle('scrolled', scrolled);
     // branca → hero escuro | recortada (colorida) → nav branco
     navLogo.src = scrolled
-      ? 'assets/logo-estrela-recortada.png'
-      : 'assets/logo-estrela-branca.png';
+      ? 'assets/logo-estrela-recortada.webp'
+      : 'assets/logo-estrela-branca.webp';
   }, { passive: true });
 
   // Reveal on scroll
